@@ -1,0 +1,187 @@
+\documentclass[tikz]{standalone}
+\usetikzlibrary{positioning,fit}
+\usepackage{amsfonts}
+\usetikzlibrary{shapes,snakes,calc}
+\usetikzlibrary{calc}
+\usepackage{pgfplotstable,filecontents}
+\pgfplotsset{compat=1.9}% supress warning
+\usepackage{booktabs}
+\usepackage{color, colortbl}
+\definecolor{LightCyan}{rgb}{0.88,1,1}
+\definecolor{LightGreen}{rgb}{0.8,1,0.4}
+\definecolor{LightOrange}{rgb}{1,0.8,0.6}
+\usepackage[first=0,last=9]{lcg}
+\usepackage{adjustbox}
+\usetikzlibrary{fit,calc,decorations.text}
+\usepackage{arev,braket}
+\definecolor{oceanboatblue}{rgb}{0.0, 0.47, 0.75}
+\begin{document}
+\begin{tikzpicture}[tap/.style args = {#1/#2}{decoration={raise=#1,
+                                      text along path,
+                                      text align={align=center},
+                                      text={#2}
+                                      },
+              postaction={decorate},
+              font=\scriptsize
+              },>=latex]
+
+\node[text width=2cm,draw=black,label=below:{\textit{Log}}] (A) {$\braket{\textsf{A,B,C,B}}$ $\braket{\textsf{A,B,A}}$ $\braket{\textsf{A,D,B}}$ $\braket{\textsf{C,B,A}}$} ;
+
+\node[right=2cm of A] (T1) {\begin{tabular}{lll}
+\toprule
+     \texttt{A.} & \texttt{T.} & \texttt{C.} \\
+\midrule
+    \textit{A} & 0 &  1\\
+    \textit{A} & 1 &  2\\
+    \textit{A} & 2 &  1\\
+    \textit{A} & 3 & 1\\
+    \textit{B} & 0 & 2\\
+    \textit{B} & 1 & 1\\
+    \textit{B} & 2 & 1\\
+    \textit{B} & 3 &  1\\
+    \textit{C} & 0 &  1\\
+    \textit{C} & 1 & 0\\
+    \textit{C} & 2 & 0\\
+    \textit{C} & 3 & 1\\
+    \textit{D} & 0 & 0\\
+    \textit{D} & 1 &  0\\
+    \textit{D} & 2 & 1\\
+    \textit{D} & 3 & 0\\
+\bottomrule
+\end{tabular}};
+
+
+\node[right=2cm of T1] (T2) {\begin{tabular}{lllll}
+\toprule
+     \texttt{A.} & \texttt{T.} & \texttt{E.} & \texttt{P.}  & \texttt{N.} \\
+\midrule
+    \textit{A} & 0 &  0 & \texttt{NULL} & 5\\%0
+    \textit{A} & 1 &  0& \texttt{NULL} & 7\\%1
+    \textit{A} & 1 &  2& 7 & \texttt{NULL}\\%2
+    \textit{A} & 2 & 0& \texttt{NULL} & 12\\%3
+    \textit{A} & 3 & 2& 9 & \texttt{NULL}\\%4
+
+
+    \textit{B} & 0 & 1& 0 & 10\\%5
+    \textit{B} & 0 & 3& 10 & \texttt{NULL}\\%6
+    \textit{B} & 1 & 1& 1 & 2\\%7
+    \textit{B} & 2 &  2& 12 & \texttt{NULL}\\%8
+    \textit{B} & 3 &  2& 11 & 4\\%9
+
+    \textit{C} & 0 &  2& 5 & 6\\%10
+    \textit{C} & 3 & 0& \texttt{NULL} & 9\\%11
+
+    \textit{D} & 2 & 1& 3 & 8\\%12
+\bottomrule
+\end{tabular}};
+
+\node[fit=(T1)(T2),label=below:{\textit{Columnar Data-Storage}},draw=black] (B) {};
+
+
+\path [->,line width=1.8pt,draw=black]
+                (A) edge node [above]{{Loading}} node [below]{Indexing}  (B);
+
+\node[fill=yellow,draw=orange!20,very thick,rounded corners,label=above:{\textit{{Specification}}}] (S) at (18,10) {\textsf{AltResponse}(\texttt{A},\texttt{B})};
+
+\node[label=right:\texttt{\color{oceanboatblue}queryplan}](G) at (18,9) {\includegraphics[scale=.1]{gears.png}};
+    \begin{scope}[
+    	yshift=-150,every node/.append style={
+    	    yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+    	             ]
+%        \fill[white,fill opacity=.9] (10,-10) rectangle (15,-2.5);
+%        \draw[black,very thick] (10,-10) rectangle (15,-2.5);
+%        \draw[step=5mm, black] (10,-10) grid (15,-2.5);
+\node[fill=blue!40,draw=blue,very thick,rounded corners] at (13,-11) (A1){$\small\textsf{Activity}_A(\texttt{A})$};
+\node[fill=blue!40,draw=blue,very thick,rounded corners] at (16,-11)(T1){$\small\textsf{Activity}_T(\texttt{B})$};
+\node[fill=green!40,draw=green,very thick,rounded corners] at (15,-6) (R1){$\small\textsf{Or}$};
+\node[fill=red!40,draw=red,very thick,rounded corners] at (15,-5) (G1){$\small\textsf{Globally}$};
+\node[fill=red!40,draw=red,very thick,rounded corners] at (13,-10) (N1){$\small\textsf{Not}$};
+\node[fill=pink,draw=red,very thick,rounded corners] at (16,-8) (F1){$\small\textsf{AndAltFuture}$};
+\draw[-latex,very thick] (N1) -- (R1);
+\draw[-latex,very thick] (R1) -- (G1);
+\draw[-latex,very thick] (A1) -- (N1);
+\draw[-latex,very thick] (A1) -- (F1);
+\draw[-latex,very thick] (T1) -- (F1);
+\draw[-latex,very thick] (F1) -- (R1);\node[rounded corners,draw,minimum height=7cm,minimum width=5.5cm] at (14.5,-8) (qp2)  {};
+    \end{scope}
+
+    \begin{scope}[
+    	yshift=0,every node/.append style={
+    	    yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+    	             ]
+
+  %      \fill[white,fill opacity=.9] (10,-10) rectangle (15,-2.5);
+   %     \draw[black,very thick] (10,-10) rectangle (15,-2.5);
+  %      \draw[step=5mm, black] (10,-10) grid (15,-2.5);
+\node[fill=blue!40,draw=blue,very thick,rounded corners] at (13,-11) (A2){$\small\textsf{Activity}_A(\texttt{A})$};
+\node[fill=blue!40,draw=blue,very thick,rounded corners] at (16,-11) (T2){$\small\textsf{Activity}_T(\texttt{B})$};
+\node[fill=red!40,draw=red,very thick,rounded corners] at (13,-10) (N2){$\small\textsf{Not}$};
+\node[fill=green!40,draw=green,very thick,rounded corners] at (16,-9) (U2){$\small\textsf{Until}$};
+\node[fill=red!40,draw=red,very thick,rounded corners] at (16,-8) (X2){$\small\textsf{Next}$};
+\node[fill=green!40,draw=green,very thick,rounded corners] at (16,-7) (D2){$\small\textsf{And}$};
+\node[fill=green!40,draw=green,very thick,rounded corners] at (15,-6) (R2){$\small\textsf{Or}$};
+\node[fill=red!40,draw=red,very thick,rounded corners] at (15,-5) (G2){$\small\textsf{Globally}$};
+
+\draw[-latex,very thick] (A2) -- (N2);
+\draw[-latex,very thick] (N2) -- (U2);
+\draw[-latex,very thick] (T2) -- (U2);
+\draw[-latex,very thick] (U2) -- (X2);
+\draw[-latex,very thick] (X2) -- (D2);
+\draw[-latex,very thick] (A2) -- (D2);
+\draw[-latex,very thick] (N2) -- (R2);
+\draw[-latex,very thick] (D2) -- (R2);
+\draw[-latex,very thick] (R2) -- (G2);
+\node[rounded corners,draw,minimum height=7cm,minimum width=5.5cm] at (14.5,-8) (qp1)  {};
+
+    \end{scope}
+
+
+
+\path [->,line width=1.8pt,draw=black]
+                (G)    edge [bend left] node [midway,sloped,above] {\textit{Original}} (qp1);
+
+\path [->,line width=1.8pt,draw=black]
+                (G)    edge [bend right] node [near start,sloped,above] {\textit{Proposed}} (17,-1.3);
+
+\draw[very thick](13.35,-1.6) edge [-latex] node [above] {\texttt{\color{oceanboatblue}model-check}} (16.4,-1.6);
+\draw[very thick](13.35,3.6) edge [-latex] node [above] {\texttt{\color{oceanboatblue}model-check}}  (16.4,3.6);
+
+\draw[very thick](27.35,-1.6) edge [-latex] node [above] {\textit{result}} (29.4,-1.6);
+\draw[very thick](27.35,3.6) edge [-latex] node [above] {\textit{result}}  (29.4,3.6);
+
+%\node at (75: 7cm) (csv1) {\includegraphics[width=1cm]{csv.png}};
+%\node[below left=.001cm of csv1] (xes1) {\includegraphics[width=1cm]{xes_file_extension.png}};
+%\node[draw,fit=(csv1) (xes1),label=below:{``Training'' Log}] (TD) {};
+%
+%\node at (105: 7cm) (csv2) {\includegraphics[width=1cm]{csv.png}};
+%\node[below left=.001cm of csv2] (xes2) {\includegraphics[width=1cm]{xes_file_extension.png}};
+%\node[draw,fit=(csv2) (xes2),label=below:{``Testing'' Log}] (TD2) {};
+%
+%\node[label=below:{Temporal Specification}] at (0: 7cm) (TM) {\includegraphics[width=1.5cm]{report.png}};
+%
+%\path [->,line width=1.8pt,draw=black, tap={12pt/|\LARGE|Specification Mining}]
+%                (TD)    to [bend left] (TM);
+%
+%
+%\node[label=below:{Formal Verification}] at (270: 7cm) (CC) {\includegraphics[width=2cm]{conformance.png}};
+%
+%\path [->,line width=1.8pt,draw=black]
+%                ($(TM.south)-(0,.5cm)$)    to [bend left] (CC);
+%\path [->,line width=1.8pt,draw=black]
+%                ($(TD2.south)-(0,.5cm)$)    to  (CC);
+%
+%
+%\node[label=below:{Log Repair}] at (180: 7cm) (DR) {\includegraphics[width=2cm]{data_repair.png}};
+%\node[label=below:{Specification Repair},right=.5cm of DR] 
+% (PR) {\includegraphics[width=2cm]{process_repair.png}};
+%
+%\path [->,line width=1.8pt,draw=black]
+%                (CC)    to [bend left] ($(DR.south)-(0,.5cm)$);
+%\path [->,line width=1.8pt,draw=black,tap={12pt/|\LARGE|User Feedback}]
+%                (DR)    to [bend left] (TD2);
+%
+%\path [->,line width=1.8pt,draw=black]
+%                (CC)    to [bend left] ($(PR.south)-(0,.5cm)$);
+%\draw[->,line width=1.8pt] (PR) edge node [above]{\LARGE{Prediction Adjustment}} (TM);
+\end{tikzpicture}
+\end{document}

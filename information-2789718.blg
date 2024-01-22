@@ -1,0 +1,103 @@
+This is BibTeX, Version 0.99d (TeX Live 2021)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: information-2789718.aux
+The style file: Definitions/mdpi.bst
+I found no \bibdata command---while reading file information-2789718.aux
+Warning--I didn't find a database entry for "DBLP:journals/cacm/SeshiaSS22"
+Warning--I didn't find a database entry for "DBLP:books/daglib/0020348"
+Warning--I didn't find a database entry for "DBLP:conf/bpm/BergamiMMM21"
+Warning--I didn't find a database entry for "DBLP:conf/bpm/AwadDW08"
+Warning--I didn't find a database entry for "WEIDLICH20111009"
+Warning--I didn't find a database entry for "10.7717/peerj-cs.346"
+Warning--I didn't find a database entry for "DBLP:conf/siu/YaziCG19"
+Warning--I didn't find a database entry for "8782520"
+Warning--I didn't find a database entry for "XuPYYLZ20"
+Warning--I didn't find a database entry for "https://doi.org/10.4121/uuid:d9769f3d-0ab0-4fb8-803b-0d1120ffcf54"
+Warning--I didn't find a database entry for "DBLP:conf/wbdb/PetermannJMR14"
+Warning--I didn't find a database entry for "Petsis2022"
+Warning--I didn't find a database entry for "DBLP:conf/ijcai/GiacomoV13"
+Warning--I didn't find a database entry for "4384001"
+Warning--I didn't find a database entry for "cuzzocrea:LIPIcs.TIME.2021.4"
+Warning--I didn't find a database entry for "DBLP:reference/db/Amer-YahiaPTKDC18"
+Warning--I didn't find a database entry for "DBLP:conf/caise/SchonigRCJM16"
+Warning--I didn't find a database entry for "DBLP:journals/pacmmod/HuangZCS23"
+Warning--I didn't find a database entry for "5963680"
+Warning--I didn't find a database entry for "DBLP:journals/pvldb/KaufmannVFKF13"
+Warning--I didn't find a database entry for "DBLP:journals/isci/WangJS95"
+Warning--I didn't find a database entry for "DBLP:conf/cikm/Wang95"
+Warning--I didn't find a database entry for "DBLP:journals/pacmmod/00080ZC23"
+Warning--I didn't find a database entry for "HUO2022117176"
+Warning--I didn't find a database entry for "9591387"
+Warning--I didn't find a database entry for "10.1007/978-3-031-08421-8_9"
+Warning--I didn't find a database entry for "4567924"
+Warning--I didn't find a database entry for "info14030173"
+Warning--I didn't find a database entry for "BellatrecheKB21"
+Warning--I didn't find a database entry for "Appleby"
+Warning--I didn't find a database entry for "DBLP:books/mg/AtzeniCPT99"
+Warning--I didn't find a database entry for "10.5555/2842853"
+Warning--I didn't find a database entry for "DBLP:books/x/dittrich2016"
+Warning--I didn't find a database entry for "computers12090185"
+Warning--I didn't find a database entry for "BurattinMS16"
+Warning--I didn't find a database entry for "DBLP:conf/tamc/ZhuPV19"
+Warning--I didn't find a database entry for "Li2020"
+Warning--I didn't find a database entry for "DBLP:journals/cim/AcamporaVSAGV17"
+Warning--I didn't find a database entry for "APrioriDeclare"
+Warning--I didn't find a database entry for "DBLP:books/sp/22/MurillasRA22"
+Warning--I didn't find a database entry for "DBLP:books/sp/22/KammererPR22"
+Warning--I didn't find a database entry for "IdreosGNMMK12"
+Warning--I didn't find a database entry for "10.1145/1265530.1265535"
+Warning--I didn't find a database entry for "Schonig15"
+Warning--I didn't find a database entry for "DBLP:journals/pvldb/BonczMK09"
+Warning--I didn't find a database entry for "10.1145/182.358434"
+Warning--I didn't find a database entry for "DBLP:series/txcs/Revesz10"
+Warning--I didn't find a database entry for "oraclecloud"
+Warning--I didn't find a database entry for "tuzhilin2018using"
+Warning--I didn't find a database entry for "10.1007/BFb0014161"
+Warning--I didn't find a database entry for "Snodgrass2009"
+Warning--I didn't find a database entry for "DBLP:journals/spe/Musser97"
+Warning--I didn't find a database entry for "math11122691"
+Warning--I didn't find a database entry for "DBLP:journals/vldb/RostGTFSCAJR22"
+Warning--I didn't find a database entry for "olaf"
+Warning--I didn't find a database entry for "DBLP:conf/medi/ZakiHH022"
+You've used 0 entries,
+            2887 wiz_defined-function locations,
+            651 strings with 5884 characters,
+and the built_in function-call counts, 18 in all, are:
+= -- 0
+> -- 0
+< -- 0
++ -- 0
+- -- 0
+* -- 0
+:= -- 12
+add.period$ -- 0
+call.type$ -- 0
+change.case$ -- 0
+chr.to.int$ -- 0
+cite$ -- 0
+duplicate$ -- 0
+empty$ -- 0
+format.name$ -- 0
+if$ -- 0
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 0
+newline$ -- 3
+num.names$ -- 0
+pop$ -- 0
+preamble$ -- 0
+purify$ -- 0
+quote$ -- 0
+skip$ -- 0
+stack$ -- 0
+substring$ -- 0
+swap$ -- 0
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 0
+width$ -- 0
+write$ -- 2
+(There was 1 error message)

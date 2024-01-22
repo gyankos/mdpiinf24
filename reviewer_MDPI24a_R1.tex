@@ -1,0 +1,250 @@
+\documentclass{article}
+\usepackage[italian]{babel}
+\usepackage{zref-savepos}
+\usepackage{changepage}
+\usepackage{fullpage}
+\usepackage{xcolor}
+\usepackage{braket}
+\usepackage{amsfonts}
+% import Eq and Section references from the main manuscript where needed
+\usepackage{xr}
+\externaldocument{template_R1}
+\newcounter{mycomment}
+
+\newenvironment{UnknownEnvironment}
+ {\unskip\stepcounter{mycomment}\zsavepos{endpar\the\value{mycomment}}%
+    \par\bigskip%
+    \begin{adjustwidth}{3cm}{0cm}\begin{sf}}
+ {\end{sf}\end{adjustwidth}
+  \par\bigskip
+  \noindent\hspace*{\dimexpr\zposx{endpar\the\value{mycomment}}sp-\oddsidemargin-1in}\ignorespaces}
+
+\usepackage{xifthen,hyperref}
+\newcounter{reviewer}
+\setcounter{reviewer}{0}
+\newcounter{point}[reviewer]
+\setcounter{point}{0}
+
+% This refines the format of how the reviewer/point reference will appear.
+\renewcommand{\thepoint}{P\,\thereviewer.\arabic{point}} 
+
+% command declarations for reviewer points and our responses
+\newcommand{\reviewersection}{\stepcounter{reviewer} \bigskip \hrule
+                  \section*{Reviewer \thereviewer}}
+
+\newenvironment{point}
+   {\refstepcounter{point} \bigskip \noindent {\textbf{Reviewer~Point~\thepoint} } ---\ }
+   {\par }
+
+\newcommand{\shortpoint}[1]{\refstepcounter{point}  \bigskip \noindent 
+	{\textbf{Reviewer~Point~\thepoint} } ---~#1\par }
+
+\newenvironment{reply}
+   {\medskip \noindent \begin{sf}\textbf{Reply}:\  }
+   {\medskip \end{sf}}
+
+\newcommand{\shortreply}[2][]{\medskip \noindent \begin{sf}\textbf{Reply}:\  #2
+	\ifthenelse{\equal{#1}{}}{}{ \hfill \footnotesize (#1)}%
+	\medskip \end{sf}}
+
+\usepackage{tgpagella}
+
+\begin{document}
+
+
+\section*{Response to the reviewers and the Academic Editor}
+
+The paper has been reviewed by three reviewers, who all liked the paper as a valuable contribution. They have made separate recommendations for minor improvements. These recommendations concern some definitions that need to be explained better at the proper place of the text, some more references to the scientific literature and other minor edits. Please take care of these minor revisions before the publication of your paper. Thank you for submitting this paper to the special issue. 
+
+
+\begin{reply}
+Thank you for your involvement in the process and for stressing out the major points to be covered. I provided the following changes to the manuscript:
+\begin{enumerate}
+\item We added a legend to Table 1.
+\item We added birds-eye-view of the overall pipeline in Figure 1, which is further supported and described with Example 1 and Example 2.
+\item We clearly remarked that our major contribution is a performance analysis (L. 109)
+\item  As required definitions, we provided a better distinction between \textit{dataless} and \textit{dataful} logs (\S2.1.1) and specifications (\S2.1.2).
+\item We improved the readibility of the formul\ae~ in \S3 by adding colour (blue) and sizing parentheses.
+\item We expanded \S2.3 and \S6 with the suggested literature. 
+\end{enumerate}
+Please find the full reply to the reviewers enclosed in this pdf for your convenience. 
+\end{reply}
+
+
+
+\newpage
+% Let's start point-by-point with Reviewer 1
+\reviewersection
+[\dots]  The formulation of model checking seems like a “routine” model checking task, and it does not contain proper novelty.  However, these formulations are an important pre-condition for further analysis. [\dots]
+\begin{UnknownEnvironment}
+We thank the reviewer for their constructive criticism that we hope put the paper in a stronger position. We agree with the reviewer that the contribution provided by this paper is on model checking. Nevertheless, this present paper aims at walking in the footsteps of current database literature, where the definition of novel relational operations is considered for further streamlining query answering mechanisms. Henceforth, we propose four novel \texttt{xt}LTL\textsubscript{f} algebraic operators for outperforming the conformance checking time proposed by our previous solution.
+\end{UnknownEnvironment}
+
+\begin{point}
+\textit{Table 1: formal notation.}
+
+\textit{However, the applied notations are fully explained in the text later on in the paper, it would be nice to refer to the exact places of the explanation in the Table or footnote to the table (the "$\mathcal{W}$", 'Weak until', and "$\mathcal{U}$" , 'Until' notation). Because even the referred "DECLARE" article does not contain all the notations.}
+\end{point}
+\begin{reply}
+We thank the reviewer for pointing this out: we added a legend below the aforementioned table providing the name associated to each symbol.
+\end{reply}
+
+\begin{point}
+\textit{Two concepts should be explained in detail or through definitions, namely, 'dataful' and 'dataless'. These concepts cannot be found in the cited articles.}
+\end{point}
+\begin{reply}
+We thank the reviewer for pointing out this missing description: we added this in terms of both log specification $\varsigma(\sigma^i_j)$, as well as in terms of LTL\textsubscript{f} and its proposed extension \texttt{xt}LTL\textsubscript{f}. As Declare can be then specified in terms of temporal logic, this should then clarify our previous statement in \S2.1.2 referring to dataful and dataless clauses referring to dataful and dataless logs. 
+\end{reply}
+
+
+\begin{point}
+\textit{The argumentation of time complexity is hard to follow. It would be better to map the proposed search algorithm onto the fundamental searching algorithm (linear, etc.). Then the fundamental searching algorithm and proposed approaches can be compared easily, and the estimation could be checked.}
+\end{point}
+\begin{reply}
+The definition of \texttt{xt}LTL\textsubscript{f} operators relied on the definition of completely new searching algorithms explicitly tailored for handling the temporal task. Due to this, we cannot entirely rely on a straightforward formulation of such algorithms in form of fundamental constituents. When possible, we outlined straightforward implementations by relating to their intended computational complexity (``\textit{As these can be computed with a joint linear scan of both operands, both operators have at most a time complexity in $O(|\rho|+|\rho'|)$}'', \S2.2.2 and \textit{Binary Operators}, L. 316).
+
+To better understand the running time difference between the previous query plan expressed in terms of operators providing a 1-to-1 mapping and the new one where newly proposed operators are used, we added Example 2, where this is explained through juxtaposition.
+\end{reply}
+
+\begin{point}
+\textit{$|\rho|$ notation should be defined accurately, it can be guessed that it is the length of a sequence, but it is nowhere specified explicitly}
+\end{point}
+\begin{reply}
+We thank the reviewer for this clarification request. We now clarified in the paper that $\rho$ refers to the data both accepted and returned by the non-leaf \texttt{xt}LTL\textsubscript{f} operators, by remarking that $\rho$ is the data which schema appears now in Equation 2. This is later on clarified within the definition of unary and binary operators, where $\rho$ is used to denote the operands for such operators. Due to this, each $\rho$ stores multiple sequences being stored within the columnar data representation, and not just one single sequence/trace (See also \ref{RDBMS}).
+
+
+ Therefore, we denote $|\rho|$ as the number of the overall events satisfying a given condition expressed by a \texttt{xt}LTL\textsubscript{f} expression, while $\epsilon$ denotes the maximum trace length for any sequence being stored within the columnar database.
+\end{reply}
+
+\begin{point}
+\textit{The genre of the research should be made more explicit. The research focuses on a performance analysis that is clear from Sections 4. and 5. The model checking formulas conceptualized through linear temporal logic is the subject of the performance analysis. [\dots]}
+\end{point}
+\begin{reply}
+Hoping to correctly address the suggestion, we remarked that our contribution concerned the performance analysis of four newly introduced \texttt{xt}LTL\textsubscript{f} operators before the last bullet point within the introduction (L. 109). Furthermore, the paper's title stresses that our primary focus is on streamlining existing approaches, as this would be a major requirement for expediting further temporal specification mining and learning approaches considering multiple traces at once. 
+\end{reply}
+
+\begin{point}
+\textit{A figure about the architecture can help understand the structure of the system.}
+\end{point}
+\begin{reply}
+We added Figure 1 to outline the possibility of choosing different operators through the \texttt{queryplan} query (\S2.2.1), while remarking the difference in operations being scheduled by comparing the \texttt{Original} and \texttt{Proposed} solution. The information content from this image is later on explained with Example 1 and Example 2.
+\end{reply}
+
+
+\newpage
+% Let's start point-by-point with Reviewer 2
+\reviewersection
+
+
+The abstract summarizes the content of the article and lists the achieved results and benefits of the work. The review of the literature and the current state of knowledge is comprehensive enough. The symbols used are clearly defined. Conclusions and Future Works are also sufficient. From this point of view, I have nothing to criticize the author or recommend for improvement. [\dots] An interesting article that deserves to be published.
+\begin{UnknownEnvironment}
+We thank the reviewer for his appreciation in recognizing the merits of the present paper. We hope to have adequately addressed the comments from the reviewer.
+\end{UnknownEnvironment}
+
+
+
+\begin{point}
+\textit{I recommend correcting the parentheses in the formulas - or use their different sizes. Different sizes of brackets will improve orientation in the text for readers. Do at least like in formula 6.}
+\end{point}
+\begin{reply}
+We thank the reviewer for this clarification request. We applied differently-sized brackets to all equations, while remarking in blue the expressions referring to the newly defined operator.
+\end{reply}
+
+\begin{point}
+\textit{Delete the Section title \glqq{7. Patents}\grqq{}}
+\end{point}
+\begin{reply}
+We are unsure whether this is actually required for the MDPI standards: we leave this decision to the journal editors, as this section was retained in our prior MDPI submissions.
+\end{reply}
+
+\begin{point}\label{r2fix}
+\textit{Captions under the images are not legible - fix them}
+\end{point}
+\begin{reply}
+We thank the reviewer for this observation: we added a \texttt{\textbackslash medskip} after each label for better separating the text.
+\end{reply}
+
+
+
+
+
+ 
+
+
+\newpage
+% Let's start point-by-point with Reviewer 1
+\reviewersection
+
+\textit{This paper is really interesting and provides valuable new strategies for managing and evaluating temporal data.  }
+\begin{UnknownEnvironment}
+We (as the authors) thank the reviewer for the constructive comments that, we hope, helped to improve the manuscript’s quality. 
+\end{UnknownEnvironment}
+
+\begin{point}\label{RDBMS}
+\textit{Relational databases still provide sufficient power, and temporal extensions are now an inseparable part of the technology. [\dots] It would be worth to deeply reference temporal database approaches, because a significant progress was been done in the last year:} \url{https://ieeexplore.ieee.org/search/searchresult.jsp?queryText=temporal%20databases&highlight=true&returnFacets=ALL&returnType=SEARCH&matchPubs=true&sortType=newest} [\dots] \textit{These new references would provide a deeper context of the temporal data processing. [\dots] Reconsider the references to be more up-to-date.}
+\end{point}
+\begin{reply}
+Please observe that refining the aformentioned IEEXplore query with double quotes, thus obtaining result specifically addressing temporal databases, only returned research from the 90s and early 2000. For this reason, the most recent research on this field comes from the Business Process Management and conformance checking literature which, nevertheless, is seriously bottlenecked by straightforward algorithms that cannot deal with big-data scenarios. This previous literature was already referenced in the introduction to the present paper.
+
+We currently found two major limitation of current relational database management systems for fully handling temporal data: \textit{first}, temporal modules mainly consider one single database as one single trace, while our system is capable of querying multiple traces at once. Furthermore, despite the possibility of translating LTL\textsubscript{f} to TSQL2 while preserving \textbf{Until} operators, this translation does not support subsequent extensions of LTL\textsubscript{f} supporting data payload constraints. Overall, this remarks a major expressivity limitation for such systems.
+
+More recent work by Shönig et al. \textbf{[17,43]} showed how to load multiple traces within a single relational database, while performing specification mining and formal verification tasks over multiple traces directly in SQL without the need of any specific temporal language specifications such as TSQL2. This approach relied on traditional relational database operators and on row-based databases. On the other hand, our previous solution proposed a paradigm shift by changing the store to a columnar database,  as well as proposing tailored temporal operators for carrying out temporal tasks; this solution outperformed the previous one relying on off-the-shelf solutions.
+
+Latest research in the field mainly focuses on querying multiple time series after being stored in relational databases \textbf{[18]}. Such orthogonal stream of research is  also referenced in the introduction while drawing connections to the currently envisioned solution. The solutions outlined in the second two  paragraphs are referenced in \S2.3.
+\end{reply}
+
+\begin{point}\label{r3books}
+
+[\dots] Or even books are relevant for the reference:
+
+\url{https://www.amazon.com/Developing-Robust-Oriented-Applications-Oracle-ebook/dp/B0BZJG8G7Q/ref=sr_1_1?crid=3BLBAKQN2NBE5&keywords=michal+kvet&qid=1681138050&sprefix=michal+kve,aps,219&sr=8-1&language=en_US&currency=EUR}
+\begin{UnknownEnvironment}
+We added this reference to remark current implementations of timestamp transformation operations  (\S2.3), as well as a valuable consideration for better supporting larger dataset that might not completely fit in primary memory (\S6).
+\end{UnknownEnvironment}
+
+\url{https://www.amazon.com/Using-Temporal-Datalog-Databases-Evolving/dp/1019420022/ref=sr_1_1?crid=KYUHPIASFZT&keywords=temporal+databases&qid=1704198146&sprefix=temporal+databases%2Caps%2C176&sr=8-1}
+\begin{UnknownEnvironment}
+We referenced this book in \S2.3 while motivating why temporal modules might be considered as a single trace in the log rather than a collection of traces (log).
+\end{UnknownEnvironment}
+
+\end{point}
+
+\begin{point}
+Besides, I recommend adding a section discussing the scalability of the solution, how it would work for a significant large data set? 
+\begin{UnknownEnvironment}
+Experiments in Section 5 discuss the scalability of such a solution, where traces are discussed in both terms of variation of trace length as well as in the overall number of traces. These results primary shows that such operators are mainly affected by the number of overall events occurring in a trace, as this would require to significantly increase the number of overall scans and seek for temporal correlations.
+
+As per previous considerations concerning Oracle Cloud (\ref{r3books}), we are considering in the future to migrate this approach to distributed systems to support a larger volume of data, thus better handling out-of-memory issues.
+\end{UnknownEnvironment}
+The experiments and results should be more properly discussed. At least provided figures and tables should be discussed. 
+\begin{UnknownEnvironment}
+After addressing the experimental set-up (L. 547-598), we provided an experimental analysis for each plot (L. 599-633). This experimental evidence was also corroborated by theoretical time complexity analysis (\S4).
+\end{UnknownEnvironment}
+\end{point}
+
+\begin{point}
+Please state also the limitation of the research and future research perspectives.
+\end{point}
+\begin{reply}
+The last section outlines the following limitations:
+\begin{enumerate}
+\item Challenging the need for dealing with larger datasets by either porting the current architecture to secondary-memory or by supporting distributed computations that can be carried out in the cloud.
+\item The definition of hybrid algorithms for choosing the best operator depending on the event-label distribution, average trace length, and overall log size.
+\item Extending the current benchmarks for considering \textit{dataful} logs.
+\item Leveraging previous literature on temporal modules/relational databases by also considering multiple events occurring at a same point in time.
+\item Porting the current temporal data operators to the graph database domain.
+\end{enumerate}
+\end{reply}
+
+ 
+\begin{point}
+\textit{Text in fig. 2 is cut off.  [\dots]}
+\end{point}
+\begin{reply}
+We thank the reviewer for this: we amended now this issue as also requested by \ref{r2fix}.
+\end{reply}
+
+
+ 
+
+\end{document}
